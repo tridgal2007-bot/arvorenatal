@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Natal! Converse conosco</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --whatsapp-green: #25D366;
+            --whatsapp-dark-green: #128C7E;
+            --christmas-red: #e74c3c;
+            --christmas-green: #2ecc71;
+            --gold: #f1c40f;
+            --deep-gold: #d4ac0d;
+            --silver: #bdc3c7;
+            --snow: #f9f9f9;
+            --dark-green: #0a3d19;
+            --mid-green: #0f5b29;
+            --light-green: #1a7a3e;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--dark-green), var(--mid-green), var(--light-green));
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+            padding: 10px;
+        }
+
+        /* Elementos natalinos de fundo */
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: rgba(10, 30, 25, 0.35);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                inset 0 0 25px rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: linear-gradient(145deg, rgba(0, 20, 10, 0.7), rgba(10, 60, 30, 0.85));
+            padding: 20px 15px;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 8px,
+                rgba(255, 255, 255, 0.08) 8px,
+                rgba(255, 255, 255, 0.08) 16px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-200px); }
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(to right, var(--christmas-red), var(--gold), var(--christmas-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-top: 5px;
+            font-weight: 300;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .content {
+            padding: 30px 15px 25px;
+            text-align: center;
+            background: rgba(0, 40, 20, 0.45);
+            position: relative;
+        }
+
+        .season-greetings {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--gold);
+            font-weight: 700;
+            text-shadow: 
+                0 0 8px rgba(241, 196, 15, 0.7),
+                0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .price-highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--christmas-red), #c0392b);
+            padding: 6px 18px;
+            border-radius: 40px;
+            margin: 12px 0 20px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 4px 12px rgba(231, 76, 60, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2);
+            border: 2px solid var(--gold);
+            animation: pulsePrice 2s infinite;
+        }
+
+        @keyframes pulsePrice {
+            0% { box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2); }
+            50% { box-shadow: 0 4px 12px rgba(231, 76, 60, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.3); }
+            100% { box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2); }
+        }
+
+        .message {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 300;
+            padding: 15px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            background: rgba(0, 30, 15, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--whatsapp-green), var(--whatsapp-dark-green));
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            padding: 16px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 
+                0 6px 20px rgba(37, 211, 102, 0.5),
+                0 0 0 3px rgba(37, 211, 102, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            margin: 10px auto;
+        }
+
+        .whatsapp-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            transform: rotate(30deg);
+            transition: opacity 0.6s;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .whatsapp-btn:hover::before {
+            opacity: 1;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 8px 25px rgba(37, 211, 102, 0.6),
+                0 0 0 4px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:active {
+            transform: translateY(0);
+        }
+
+        .whatsapp-icon {
+            width: 35px;
+            height: 35px;
+            fill: white;
+            transition: transform 0.5s ease;
+        }
+
+        .whatsapp-btn:hover .whatsapp-icon {
+            transform: rotate(360deg);
+        }
+
+        .pulse {
+            position: relative;
+        }
+
+        .pulse::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border: 3px solid rgba(37, 211, 102, 0.4);
+            border-radius: 50px;
+            animation: pulseRing 2s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulseRing {
+            0% { 
+                transform: scale(0.9);
+                opacity: 1;
+            }
+            70% {
+                transform: scale(1.2);
+                opacity: 0.4;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .footer {
+            padding: 18px 15px;
+            text-align: center;
+            background: rgba(0, 20, 10, 0.4);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .christmas-elements {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .element {
+            font-size: 2.2rem;
+            animation: float 3.5s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+        }
+
+        .element:nth-child(2) { animation-delay: 0.7s; }
+        .element:nth-child(3) { animation-delay: 1.3s; }
+        .element:nth-child(4) { animation-delay: 1.9s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
+        }
+
+        /* Sistema de luzes de Natal totalmente renovado */
+        .tree-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin: 25px auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .christmas-tree {
+            position: relative;
+            width: 0;
+            height: 0;
+            border-left: 90px solid transparent;
+            border-right: 90px solid transparent;
+            border-bottom: 170px solid rgba(12, 94, 40, 0.95);
+            border-radius: 30% 30% 0 0;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.4),
+                inset 0 -12px 25px rgba(241, 196, 15, 0.2);
+            z-index: 5;
+            animation: gentleSway 10s infinite alternate;
+        }
+
+        @keyframes gentleSway {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-1deg); }
+            75% { transform: rotate(1deg); }
+        }
+
+        .tree-base {
+            position: absolute;
+            bottom: -35px;
+            width: 70px;
+            height: 35px;
+            background: linear-gradient(145deg, #8B4513, #A0522D);
+            border-radius: 4px 4px 8px 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            z-index: 4;
+        }
+
+        .tree-top {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: var(--gold);
+            text-shadow: 0 0 12px rgba(241, 196, 15, 0.8);
+            animation: starTwinkle 2s infinite alternate;
+            z-index: 6;
+        }
+
+        @keyframes starTwinkle {
+            0% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+
+        .lights-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .light {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 6px 1px currentColor,
+                0 0 12px 2px currentColor;
+            opacity: 0.8;
+            animation: lightGlow 2s infinite alternate;
+            z-index: 20;
+        }
+
+        .light:hover {
+            opacity: 1 !important;
+            transform: scale(1.3);
+            box-shadow: 
+                0 0 10px 3px currentColor,
+                0 0 20px 5px currentColor;
+        }
+
+        .light.red { color: var(--christmas-red); }
+        .light.green { color: var(--christmas-green); }
+        .light.gold { color: var(--gold); }
+        .light.blue { color: #3498db; }
+        .light.purple { color: #9b59b6; }
+        .light.pink { color: #e84393; }
+
+        @keyframes lightGlow {
+            0% {
+                opacity: 0.5;
+                box-shadow: 0 0 6px 1px currentColor, 0 0 12px 2px currentColor;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 10px 2px currentColor, 0 0 20px 4px currentColor;
+                transform: scale(1.1);
+            }
+        }
+
+        .garland {
+            position: absolute;
+            width: 180px;
+            height: 8px;
+            background: rgba(231, 76, 60, 0.7);
+            border-radius: 4px;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-4deg);
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.5);
+        }
+
+        .snow-glow {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 30px;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: 1;
+        }
+
+        .tree-shine {
+            position: absolute;
+            top: 70px;
+            left: 40%;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: rotate(25deg);
+            z-index: 3;
+        }
+
+        /* Versão para telas muito pequenas (celulares) */
+        @media (max-width: 375px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .season-greetings {
+                font-size: 1.4rem;
+            }
+            
+            .price-highlight {
+                font-size: 1.6rem;
+                padding: 5px 15px;
+            }
+            
+            .message {
+                font-size: 0.95rem;
+                padding: 12px;
+            }
+            
+            .whatsapp-btn {
+                font-size: 1.1rem;
+                padding: 15px 25px;
+                gap: 8px;
+            }
+            
+            .whatsapp-icon {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .tree-container {
+                height: 160px;
+            }
+            
+            .christmas-tree {
+                border-left: 75px solid transparent;
+                border-right: 75px solid transparent;
+                border-bottom: 140px solid rgba(12, 94, 40, 0.95);
+            }
+            
+            .tree-base {
+                bottom: -30px;
+                width: 60px;
+                height: 30px;
+            }
+            
+            .tree-top {
+                top: -20px;
+                font-size: 20px;
+            }
+            
+            .garland {
+                width: 150px;
+                height: 7px;
+                top: 85px;
+            }
+            
+            .element {
+                font-size: 1.9rem;
+            }
+            
+            .christmas-elements {
+                gap: 10px;
+                margin-top: 20px;
+            }
+            
+            .footer {
+                padding: 15px 10px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="snowflakes" id="snowflakes"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Feliz Natal</h1>
+            <p>Que esta época traga paz, alegria e novas oportunidades</p>
+        </div>
+        
+        <div class="content">
+            <div class="season-greetings">Árvore de Natal</div>
+            
+            <div class="price-highlight">POR APENAS R$ 19,90</div>
+            
+            <p class="message">Traga o espírito natalino para sua casa com a árvore de natal artesanal. <strong></strong> <strong></strong></p>
+            
+            <!-- Árvore de Natal interativa com luzes realistas -->
+            <div class="tree-container">
+                <div class="christmas-tree">
+                    <div class="tree-shine"></div>
+                    <div class="garland"></div>
+                    <div class="lights-container" id="lights-container"></div>
+                </div>
+                <div class="tree-base"></div>
+                <div class="tree-top">⭐</div>
+                <div class="snow-glow"></div>
+            </div>
+            
+            <a href="https://wa.me/557583557779" class="whatsapp-btn pulse" aria-label="Enviar mensagem no WhatsApp">
+                <svg class="whatsapp-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.966-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.693.347-.173.273-.438.641-.663 1.091-.225.45-.112.999.34 1.631.452.632 1.568 2.145 3.056 3.043 1.488.898 2.775.998 3.726.735.95-.263 1.758-.966 2.007-1.897.248-.931.093-1.722-.168-2.03zm-5.322 7.638c-4.949 0-8.982-4.033-8.982-8.982s4.033-8.982 8.982-8.982 8.982 4.033 8.982 8.982-4.033 8.982-8.982 8.982zm0-16.764c-4.281 0-7.782 3.501-7.782 7.782s3.501 7.782 7.782 7.782 7.782-3.501 7.782-7.782-3.501-7.782-7.782-7.782z"/>
+                </svg>
+                <span>Converse comigo no WhatsApp</span>
+            </a>
+            
+            <div class="christmas-elements">
+                <div class="element">❄️</div>
+                <div class="element">❄️</div>
+                <div class="element">❄️</div>
+                <div class="element">❄️</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p></p>
+            <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.85;"></p>
+        </div>
+    </div>
+
+    <script>
+        // Criar flocos de neve dinamicamente
+        document.addEventListener('DOMContentLoaded', function() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflakeChars = ['❄', '❅', '❆', 'ᐧ', '❉'];
+            const snowflakeCount = Math.floor(window.innerWidth / 15);
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.opacity = `${Math.random() * 0.8 + 0.2}`;
+                snowflake.style.fontSize = `${Math.random() * 1.5 + 0.5}rem`;
+                snowflake.style.animationDuration = `${Math.random() * 15 + 10}s`;
+                snowflake.style.animationDelay = `${Math.random() * 5}s`;
+                snowflakesContainer.appendChild(snowflake);
+            }
+            
+            // Criação das luzes de Natal realistas posicionadas NA ÁRVORE
+            createChristmasLights();
+        });
+        
+        // Função para criar luzes de Natal realistas posicionadas diretamente na árvore
+        function createChristmasLights() {
+            const container = document.getElementById('lights-container');
+            const treeWidth = 180; // Largura total da árvore
+            const treeHeight = 170; // Altura da árvore
+            
+            // Cores das luzes
+            const colors = ['red', 'gold', 'blue', 'green', 'purple', 'pink'];
+            
+            // Criar 15 luzes posicionadas estrategicamente na árvore
+            for (let i = 0; i < 15; i++) {
+                const light = document.createElement('div');
+                light.classList.add('light');
+                
+                // Selecionar cor aleatória
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                light.classList.add(color);
+                
+                // Calcular posição na árvore (distribuição triangular)
+                let x, y;
+                
+                // Dividir a árvore em camadas para distribuição mais natural
+                const layer = Math.floor(i / 5); // 0 = topo, 1 = meio, 2 = base
+                
+                if (layer === 0) {
+                    // Topo (mais estreito)
+                    y = 0.2 * treeHeight; // 20% da altura
+                    x = 0.35 + Math.random() * 0.3; // 35% a 65% da largura
+                } else if (layer === 1) {
+                    // Meio
+                    y = 0.45 * treeHeight; // 45% da altura
+                    x = 0.25 + Math.random() * 0.5; // 25% a 75% da largura
+                } else {
+                    // Base (mais largo)
+                    y = 0.7 * treeHeight; // 70% da altura
+                    x = 0.15 + Math.random() * 0.7; // 15% a 85% da largura
+                }
+                
+                // Posicionar a luz centralizada na árvore
+                const leftPos = (x * treeWidth) - (treeWidth / 2);
+                light.style.left = `${leftPos}px`;
+                light.style.top = `${y}px`;
+                
+                // Configurações de animação únicas para cada luz
+                const duration = (1.5 + Math.random() * 2.5).toFixed(2); // entre 1.5s e 4s
+                const delay = (Math.random() * 2).toFixed(2);
+                const playState = Math.random() > 0.4 ? 'running' : 'paused'; // Algumas luzes piscam, outras não
+                
+                light.style.animationDuration = `${duration}s`;
+                light.style.animationDelay = `${delay}s`;
+                light.style.animationPlayState = playState;
+                
+                container.appendChild(light);
+            }
+        }
+    </script>
+</body>
+</html>
